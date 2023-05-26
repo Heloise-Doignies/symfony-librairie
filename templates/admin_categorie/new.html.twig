@@ -1,0 +1,11 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}Créer une nouvelle catégorie{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_categorie_index') }}" class="btn btn-dark mb-3"><i class="align-middle" data-feather="corner-down-left"></i> Retour</a>
+    <h1>Créer une nouvelle catégorie</h1>
+
+    {{ include('admin_categorie/_form.html.twig') }}
+
+{% endblock %}

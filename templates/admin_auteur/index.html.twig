@@ -1,0 +1,58 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}Tous les auteurs{% endblock %}
+
+{% block body %}
+{# Ajout pour les messages flash #}
+{% for label, messages in app.flashes() %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }}" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center">
+    <h1>Tous les auteurs</h1>
+    <a href="{{ path('app_admin_auteur_new') }}" class="btn btn-info"><i class="align-middle" data-feather="plus-circle"></i></a>
+</div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Pseudo</th>
+                <th>Biographie</th>
+                <th>ImageName</th>
+                <th>Slug</th>
+                <th>UpdatedAt</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for auteur in auteurs %}
+            <tr>
+                <td>{{ auteur.id }}</td>
+                <td>{{ auteur.nom }}</td>
+                <td>{{ auteur.prenom }}</td>
+                <td>{{ auteur.pseudo }}</td>
+                <td>{{ auteur.biographie }}</td>
+                <td>{{ auteur.imageName }}</td>
+                <td>{{ auteur.slug }}</td>
+                <td>{{ auteur.updatedAt ? auteur.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="text-end">
+                    <a href="{{ path('app_admin_auteur_show', {'id': auteur.id}) }}" class="btn btn-warning mb-1"><i class="align-middle" data-feather="eye"></i></a>
+                    <a href="{{ path('app_admin_auteur_edit', {'id': auteur.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-2"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">Aucune donnée enregistrée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
