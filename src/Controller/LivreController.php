@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LivreController extends AbstractController
 {
-    #[Route('/livre', name: 'app_livre')]
+    #[Route('/livre', name: 'app_livre')] //Route statique
     //On injecte la dépendance LivreRepository pour faire des requêtes
     public function index(LivreRepository $livreRepository): Response
     {
@@ -21,4 +21,17 @@ class LivreController extends AbstractController
             'livres' => $livres,//'livres' est le nom de la variable à utiliser dans le twig
         ]);
     }
+
+    //Route dynamique pour récupérer les informations dans le livre
+    #[Route('/livre/{slug}', name: 'app_livre_show')]
+    public function showBook($slug, LivreRepository $livreRepository): Response
+    {
+        //on récupère le livre correspondant au slug
+        $livre=$livreRepository->findOneBy(['slug'=>$slug]);
+        //On rend la page en lui passant le livre
+        return $this->render('livre/show.html.twig', [
+            'livre'=>$livre,
+        ]);
+    }
+
 }

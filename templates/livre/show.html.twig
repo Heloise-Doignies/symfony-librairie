@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ livre.titre }} {% endblock %}
+
+{% block body %}
+<main class="container">
+<h1 class="my-3">{{livre.titre}} - {% for auteur in livre.auteurs %} {{ auteur }} {% endfor %}</h1>
+
+<div class="row">
+    <div class="col-12 col-md-3">
+        {% if livre.imageName is defined and livre.imageName is not null %}
+        <img src="{{ asset('/images/livres/' ~ livre.imageName) }}" class="img-fluid" alt="{{livre.titre}}">
+        {% else %}
+        <img src="{{ asset('/images/livres/books.jpg') }}" class="img-fluid" alt="image par défaut">
+        {% endif %}
+    </div>
+
+    <div class="col-12 col-md-9">
+        <h2>Description : </h2>
+            <p>{{livre.description}}</p>
+        <h2>Auteur(s) :</h2>
+            <ul class="col-md-6">
+                {% for auteur in livre.auteurs %}
+                <li class="list-group-item">{{ auteur }}</li>
+                <li class="list-group-item"><img src="{{ asset('/images/auteurs/' ~ auteur.imageName) }}" class="img-fluid" alt="Auteur"></li>
+                {% endfor %}
+            </ul>
+    </div>
+
+</div>
+</main>
+{% endblock %}
